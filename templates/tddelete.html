@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action='' method="POST">{% csrf_token %}
+    <h3>この経路を削除しますか？</h3>
+    <button class="btn btn-primary" type="submit">削除する</button>
+    <a href = "{% url 'list' %}" class="btn btn-primary">一覧に戻る</a>
+    <!-- <a href = "{% url 'trupdate' object.pk %}" class="btn btn-primary">編集する</a> -->
+        <div class = 'container'>
+        <div class = "card">
+        <p>{{object.tdtitle}} [優先度:{{object.tdpriority}}]<br>
+        　詳細 : {{object.tdcontext}}<br>
+        {% if object.rootid %}
+        　　@ {{object.rootid}}
+        {% endif %}
+        </p>
+
+    </div>
+
+
+</form>
+
+{% endblock content %}
+

@@ -1,0 +1,15 @@
+.card{
+    margin-bottom: 30px;
+}
+
+.card-header{
+    text-align: left;
+}
+
+.card-data{
+    text-align: right;
+}
+
+.pic{
+    text-align: center;
+}

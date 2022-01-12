@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+<link rel='stylesheet' type="text/css" href="{% static 'style.css' %}">
+
+{% endblock header %}
+
+{% block content %}
+
+<form action = "" method = "POST">{% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary" type="submit">更新する</button>
+    <a href = "{% url 'detail' object.pk %}" class="btn btn-primary">詳細に戻る</a>
+</form>
+{% endblock content %}
+
+<!-- <a class="btn btn-primary" type="submit">詳しく見る</a> -->
+
+<!-- {% for field in form %}
+
+{% endfor %} -->

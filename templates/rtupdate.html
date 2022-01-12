@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+<link rel='stylesheet' type="text/css" href="{% static 'style.css' %}">
+
+{% endblock header %}
+
+{% block content %}
+<h5>時刻はHH:MMまたはHH:MM:SSで入力してください</h5>
+<form action = "" method = "POST">{% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary" type="submit">作成する</button>
+    <a href = "{% url 'list' %}" class="btn btn-primary">一覧に戻る</a>
+</form>
+{% endblock content %}
+
+<!-- <a class="btn btn-primary" type="submit">詳しく見る</a> -->
+
+<!-- {% for field in form %}
+
+{% endfor %} -->

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+<link rel='stylesheet' type="text/css" href="{% static 'style.css' %}">
+
+{% endblock header %}
+
+{% block content %}
+    <div class = 'container'>
+    <a href = "{% url 'trcreate' %}" class="btn btn-primary">新規作成</a>    
+    {% for item in object_list %}
+        <div class = "card">
+            <h5 class = "card-header">{{ item.title }}</h5>
+            <div class = "card-body">
+                <h5 class = "card-title">投稿者: {{ item.author }}</h5>
+                <h5 class = "card-title">旅行日: {{ item.tripdate|date:"Y年m月d日" }}</h5>
+                <h5 class = "card-title">カテゴリ: {{ item.category }}</h5>
+                <a href = "{% url 'detail' item.pk %}" class="btn btn-primary">詳しく見る</a>
+                <a href = "{% url 'trdelete' item.pk %}" class="btn btn-primary">削除する</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock content %}
+
+<!-- "{% url 'detail' item.pk %}" -->

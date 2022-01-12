@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action='' method="POST">{% csrf_token %}
+    <h3>この記事を削除しますか？(経路も含めて削除します)</h3>
+    <button class="btn btn-primary" type="submit">削除する</button>
+    <a href = "{% url 'detail' object.pk %}" class="btn btn-primary">詳細に戻る</a>
+    <a href = "{% url 'trupdate' object.pk %}" class="btn btn-primary">編集する</a>
+        <div class = 'container'>
+        <div class = "card">
+            <h4 class = "card-header">{{ object.title }}</h4>
+            <div class = "card-body">
+                <h5 class = "card-title">旅行日: {{ object.tripdate|date:"Y年m月d日" }}</h5>
+                <h5 class = "card-title">カテゴリ:{{ object.category }}</h5>
+                <h5 class = "card-title">予算メモ:<br>　　{{ object.budget }}</h5>
+                <h5 class = "card-title">コメントメモ:<br>　　{{ object.content }}</h5>
+                <img class = "pic" src='{{object.images.url}}' width=300>
+                <div class = "card-body">
+                    {% for route in object.related_root.all|dictsort:"deptime" %}
+                    {% if route.earlydep == True %}
+                    <h5>前{{ route.deptime|date:"G:i" }} {{ route.depspot }} 発 </h5>
+                    <h5>　　{{ route.roottitle }}</h5>
+                    <h5>　　備考:</h5>
+                    <h6>　　　{{ route.rootmemo }}</h6>
+                    <h5>　{{ route.arrtime|date:"G:i" }} {{ route.arrspot }} 着 </h5>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% for route in object.related_root.all|dictsort:"deptime" %}
+                    {% if route.earlydep == False %}
+                    {% if route.latearr == False %}
+                    <h5>　{{ route.deptime|date:"G:i" }} {{ route.depspot }} 発 </h5>
+                    <h5>　　{{ route.roottitle }}</h5>
+                    <h5>　　備考:</h5>
+                    <h6>　　　{{ route.rootmemo }}</h6>
+                    <h5>　{{ route.arrtime|date:"G:i" }} {{ route.arrspot }} 着 </h5>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+
+                    {% for route in object.related_root.all|dictsort:"deptime" %}
+                    {% if route.latearr == True %}
+                    <h5>　{{ route.deptime|date:"G:i" }} {{ route.depspot }} 発 </h5>
+                    <h5>　　{{ route.roottitle }}</h5>
+                    <h5>　　備考:</h5>
+                    <h6>　　　{{ route.rootmemo }}</h6>
+                    <h5>翌{{ route.arrtime|date:"G:i" }} {{ route.arrspot }} 着 </h5>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <h6 class = "card-data">管理ID: {{ object.tripid }}</h6>
+            <h6 class = "card-data">投稿者: {{ object.author }} / 投稿日: {{ object.postdate|date:"Y年m月d日" }}</h6>
+        </div>
+
+
+</form>
+
+{% endblock content %}
+

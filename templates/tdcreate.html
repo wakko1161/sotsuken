@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+<link rel='stylesheet' type="text/css" href="{% static 'style.css' %}">
+
+{% endblock header %}
+
+{% block content %}
+<div class = "card">
+    <h4 class = "card-title">タイトル: {{ trip.title }}</h4>
+    <h5 class = "card-title">旅行日: {{ trip.tripdate|date:"Y年m月d日" }}</h5>
+    <h5 class = "card-title">カテゴリ: {{ trip.category }}</h5>
+</div>
+
+<form action = "" method = "POST">{% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary" type="submit">作成する</button>
+    <a href = "{% url 'list' %}" class="btn btn-primary">一覧に戻る</a>
+</form>
+{% endblock content %}
+
+<!-- <a class="btn btn-primary" type="submit">詳しく見る</a> -->
+
+<!-- {% for field in form %}
+
+{% endfor %} -->

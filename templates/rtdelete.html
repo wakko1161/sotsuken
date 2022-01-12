@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action='' method="POST">{% csrf_token %}
+    <h3>この経路を削除しますか？</h3>
+    <button class="btn btn-primary" type="submit">削除する</button>
+    <a href = "{% url 'list' %}" class="btn btn-primary">一覧に戻る</a>
+    <!-- <a href = "{% url 'trupdate' object.pk %}" class="btn btn-primary">編集する</a> -->
+        <div class = 'container'>
+        <div class = "card">
+            {% if object.earlydep == True %}
+            <h5>前{{ object.deptime|date:"G:i" }} {{ object.depspot }} 発 </h5>
+            <h5>　　{{ object.roottitle }}</h5>
+            <h5>　　備考:</h5>
+            <h6>　　　{{ object.rootmemo }}</h6>
+            <h5>　{{ object.arrtime|date:"G:i" }} {{ object.arrspot }} 着 </h5>
+            {% endif %}
+
+            {% if object.earlydep == False %}
+            {% if object.latearr == False %}
+            <h5>　{{ object.deptime|date:"G:i" }} {{ object.depspot }} 発 </h5>
+            <h5>　　{{ object.roottitle }}</h5>
+            <h5>　　備考:</h5>
+            <h6>　　　{{ object.rootmemo }}</h6>
+            <h5>　{{ object.arrtime|date:"G:i" }} {{ object.arrspot }} 着 </h5>
+            {% endif %}
+            {% endif %}
+
+            {% if object.latearr == True %}
+            <h5>　{{ object.deptime|date:"G:i" }} {{ object.depspot }} 発 </h5>
+            <h5>　　{{ object.roottitle }}</h5>
+            <h5>　　備考:</h5>
+            <h6>　　　{{ object.rootmemo }}</h6>
+            <h5>翌{{ object.arrtime|date:"G:i" }} {{ object.arrspot }} 着 </h5>
+            {% endif %}
+    </div>
+
+
+</form>
+
+{% endblock content %}
+
